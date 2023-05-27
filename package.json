@@ -1,5 +1,5 @@
 {
-	"name": "@noorkaru/ekilex-api-client",
+	"name": "@vanakaru/ekilex-api-client",
 	"version": "0.0.1",
 	"description": "A node api client for the Ekilex API",
 	"main": "lib/index.js",
@@ -28,7 +28,7 @@
 		"wrapper",
 		"sdk"
 	],
-	"author": "Noor Karu",
+	"author": "Vana Karu",
 	"license": "ISC",
 	"dependencies": {
 		"@types/node": "^18.7.6",
