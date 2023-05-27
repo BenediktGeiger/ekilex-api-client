@@ -1,23 +1,23 @@
-export class Endpoints {
-	private config: any;
-	private httpClient: any;
+import { HttpClient } from '../http/http-client';
+import { RequestParams } from '../http/http-client';
 
-	constructor(config: any) {
-		this.config = config;
-		this.httpClient = {};
+export type EndpointsReturnType = {
+	requestMethod: string;
+	uriPatterns: Array<string>;
+};
+export class Endpoints {
+	private httpClient: HttpClient;
+
+	constructor(httpClient: HttpClient) {
+		this.httpClient = httpClient;
 	}
 
-	getAll(requestConfig: any) {
-		return [
-			{
-				requestMethod: 'GET',
-				uriPatterns: ['/api/endpoints'],
-			},
-			{
-				requestMethod: 'GET',
-				uriPatterns: ['/api/word/search/{word}', '/api/word/search/{word}/{datasets}'],
-				pathVariables: ['word::java.lang.String', 'datasets::java.lang.String'],
-			},
-		];
+	getAll(): Promise<EndpointsReturnType[]> {
+		const request: RequestParams = {
+			method: 'GET',
+			path: 'endpoints',
+		};
+
+		return this.httpClient.request(request);
 	}
 }

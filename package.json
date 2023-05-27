@@ -1,5 +1,5 @@
 {
-	"name": "@vanakaru/ekilex-api-client",
+	"name": "@noorkaru/ekilex-api-client",
 	"version": "0.0.1",
 	"description": "A node api client for the Ekilex API",
 	"main": "lib/index.js",
@@ -28,14 +28,16 @@
 		"wrapper",
 		"sdk"
 	],
-	"author": "Vana Karu",
+	"author": "Noor Karu",
 	"license": "ISC",
 	"dependencies": {
 		"@types/node": "^18.7.6",
+		"node-fetch": "^2.2.0",
 		"typescript": "^4.7.4"
 	},
 	"devDependencies": {
 		"@types/jest": "^29.2.4",
+		"@types/node-fetch": "^2.6.4",
 		"@typescript-eslint/eslint-plugin": "^5.31.0",
 		"@typescript-eslint/parser": "^5.31.0",
 		"concurrently": "^7.2.2",
