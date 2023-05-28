@@ -1,4 +1,5 @@
 import { Endpoints } from './resources/endpoints';
+import { Words } from './resources/words';
 import { HttpClient } from './http/http-client';
 export interface ConfigParams {
 	apiKey?: string;
@@ -15,6 +16,7 @@ export class EkilexClient {
 	private httpClient: HttpClient;
 
 	protected _endpoints: Endpoints | undefined;
+	protected _words: Words | undefined;
 
 	constructor(config: ConfigParams) {
 		if (!isConfigValid(config)) {
@@ -34,5 +36,12 @@ export class EkilexClient {
 			this._endpoints = new Endpoints(this.httpClient);
 		}
 		return this._endpoints;
+	}
+
+	get words() {
+		if (!this._words) {
+			this._words = new Words(this.httpClient);
+		}
+		return this._words;
 	}
 }
