@@ -1,3 +1,7 @@
+## [0.0.5] - 2023-05-28
+
+-   Adding domain and classifier resource
+
 ## [0.0.4] - 2023-05-28
 
 -   Adding datasets resource

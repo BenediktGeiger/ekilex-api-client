@@ -1,6 +1,8 @@
 import { Endpoints } from './resources/endpoints';
 import { Words } from './resources/words';
 import { Datasets } from './resources/datasets';
+import { Classifiers } from './resources/classifiers';
+import { Domains } from './resources/domains';
 import { HttpClient } from './http/http-client';
 export interface ConfigParams {
 	apiKey?: string;
@@ -19,6 +21,8 @@ export class EkilexClient {
 	protected _endpoints: Endpoints | undefined;
 	protected _words: Words | undefined;
 	protected _datasets: Datasets | undefined;
+	protected _classifiers: Classifiers | undefined;
+	protected _domains: Domains | undefined;
 
 	constructor(config: ConfigParams) {
 		if (!isConfigValid(config)) {
@@ -52,5 +56,19 @@ export class EkilexClient {
 			this._datasets = new Datasets(this.httpClient);
 		}
 		return this._datasets;
+	}
+
+	get classifiers() {
+		if (!this._classifiers) {
+			this._classifiers = new Classifiers(this.httpClient);
+		}
+		return this._classifiers;
+	}
+
+	get domains() {
+		if (!this._domains) {
+			this._domains = new Domains(this.httpClient);
+		}
+		return this._domains;
 	}
 }
