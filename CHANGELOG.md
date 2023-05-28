@@ -1,3 +1,7 @@
+## [0.0.4] - 2023-05-28
+
+-   Adding datasets resource
+
 ## [0.0.3] - 2023-05-28
 
 -   Adding words search and details resource
