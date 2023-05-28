@@ -1,6 +1,6 @@
 import { HttpClient } from '../http/http-client';
 import { RequestParams } from '../http/http-client';
-import { Datasets } from '../types/datasets';
+import { DatasetCode } from './datasets';
 
 export type Word = {
 	wordId: number;
@@ -11,7 +11,7 @@ export type Word = {
 	prefixoid: boolean;
 	suffixoid: boolean;
 	foreign: boolean;
-	datasetCodes: Datasets[];
+	datasetCodes: DatasetCode[];
 	lastActivityEventOn: string;
 };
 
@@ -37,6 +37,54 @@ export type Paradigm = {
 	formsExist: boolean;
 };
 
+export type Lexeme = {
+	wordId: number;
+	wordValue: string;
+	wordValuePrese: string;
+	wordLang: string;
+	wordHomonymNr: number;
+	wordGenderCode: number | string | null;
+	wordAspectCode: number | string | null;
+	wordDisplayMorphCode: number | string | null;
+	wordTypeCodes: number | string | null;
+	prefixoid: boolean;
+	suffixoid: boolean;
+	foreign: boolean;
+	lexemeId: number;
+	meaningId: number;
+	datasetName: string;
+	datasetCode: DatasetCode;
+	level1: number;
+	level2: number;
+	levels: string;
+	lexemeValueStateCode: number | string | null;
+	lexemeValueState: number | string | null;
+	lexemeProficiencyLevelCode: number | string | null;
+	lexemeProficiencyLevel: number | string | null;
+	reliability: number | string | null;
+	tags: string[];
+	complexity: string;
+	weight: number;
+	wordTypes: number | string | null;
+	pos: number | string | null;
+	derivs: number | string | null;
+	registers: number | string | null;
+	governments: unknown[];
+	grammars: unknown[];
+	usages: unknown[];
+	lexemeFreeforms: unknown[];
+	lexemeNoteLangGroups: unknown[];
+	lexemeRelations: unknown[];
+	collocationPosGroups: unknown[];
+	secondaryCollocations: unknown[];
+	sourceLinks: unknown[];
+	meaning: unknown;
+	meaningWords: unknown | null;
+	synonymLangGroups: unknown[];
+	lexemeOrMeaningClassifiersExist: boolean;
+	public: boolean;
+};
+
 export type WordSearchResponse = {
 	totalCount: number;
 	words: Word[];
@@ -46,10 +94,11 @@ export type WordDetailsResponse = {
 	word: Word & { morphophonoForm: string; lexemesTagNames: string[]; manualEventOn: string };
 	wordTypes: string[]; // TODO check
 	paradigms: Paradigm[];
-	// lexemes: //TODO add
-	// wordEtymology: // TODO add
-	// odWordRecommendations: // TODO add
-	// wordRelationDetails: // TODO add
+
+	lexemes: Lexeme[];
+	wordEtymology: unknown[];
+	odWordRecommendations: unknown[];
+	wordRelationDetails: unknown;
 	firstDefinitionValue: string | null;
 	activeTagComplete: boolean;
 };
@@ -61,7 +110,7 @@ export class Words {
 		this.httpClient = httpClient;
 	}
 
-	private getSearchPath(searchTerm: string, datasets: Datasets[]) {
+	private getSearchPath(searchTerm: string, datasets: DatasetCode[]) {
 		const sanitizedSearchTerm = encodeURIComponent(searchTerm);
 
 		const path = `word/search/${sanitizedSearchTerm}`;
@@ -75,7 +124,7 @@ export class Words {
 		return `${path}/${uniqueDatasetList.join(',')}`;
 	}
 
-	private getWordDetailsPath(wordId: number, datasets: Datasets[]) {
+	private getWordDetailsPath(wordId: number, datasets: DatasetCode[]) {
 		const sanitizedWordId = encodeURIComponent(wordId);
 
 		const path = `word/details/${sanitizedWordId}`;
@@ -89,7 +138,7 @@ export class Words {
 		return `${path}/${uniqueDatasetList.join(',')}`;
 	}
 
-	search(searchTerm: string, datasets: Array<Datasets> = []): Promise<WordSearchResponse> {
+	search(searchTerm: string, datasets: Array<DatasetCode> = []): Promise<WordSearchResponse> {
 		const request: RequestParams = {
 			method: 'GET',
 			path: this.getSearchPath(searchTerm, datasets),
@@ -98,7 +147,7 @@ export class Words {
 		return this.httpClient.request(request);
 	}
 
-	getDetails(wordId: number, datasets: Array<Datasets> = []): Promise<WordDetailsResponse> {
+	getDetails(wordId: number, datasets: Array<DatasetCode> = []): Promise<WordDetailsResponse> {
 		const request: RequestParams = {
 			method: 'GET',
 			path: this.getWordDetailsPath(wordId, datasets),

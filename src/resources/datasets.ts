@@ -1,4 +1,7 @@
-export type Datasets =
+import { HttpClient } from '../http/http-client';
+import { RequestParams } from '../http/http-client';
+
+export type DatasetCode =
 	| 'vkk-amet'
 	| 'ait'
 	| 'avt'
@@ -114,3 +117,32 @@ export type Datasets =
 	| 'vlk'
 	| 'vibu'
 	| 'ÕTERM';
+
+export type Dataset = {
+	code: DatasetCode;
+	type: 'TERM' | 'LEX' | 'NONE';
+	name: string;
+	description: string;
+	contact: string;
+	imageUrl: string;
+	public: boolean;
+	visible: boolean;
+	superior: boolean;
+};
+
+export class Datasets {
+	private httpClient: HttpClient;
+
+	constructor(httpClient: HttpClient) {
+		this.httpClient = httpClient;
+	}
+
+	getAll(): Promise<Dataset[]> {
+		const request: RequestParams = {
+			method: 'GET',
+			path: 'datasets',
+		};
+
+		return this.httpClient.request(request);
+	}
+}
