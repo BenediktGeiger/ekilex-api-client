@@ -3,6 +3,7 @@ import { Words } from './resources/words';
 import { Datasets } from './resources/datasets';
 import { Classifiers } from './resources/classifiers';
 import { Domains } from './resources/domains';
+import { Paradigms } from './resources/paradigms';
 import { HttpClient } from './http/http-client';
 export interface ConfigParams {
 	apiKey?: string;
@@ -23,6 +24,7 @@ export class EkilexClient {
 	protected _datasets: Datasets | undefined;
 	protected _classifiers: Classifiers | undefined;
 	protected _domains: Domains | undefined;
+	protected _paradigms: Paradigms | undefined;
 
 	constructor(config: ConfigParams) {
 		if (!isConfigValid(config)) {
@@ -70,5 +72,12 @@ export class EkilexClient {
 			this._domains = new Domains(this.httpClient);
 		}
 		return this._domains;
+	}
+
+	get paradigms() {
+		if (!this._paradigms) {
+			this._paradigms = new Paradigms(this.httpClient);
+		}
+		return this._paradigms;
 	}
 }

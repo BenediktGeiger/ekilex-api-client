@@ -1,3 +1,7 @@
+## [0.0.6] - 2023-05-29
+
+-   Adding paradigms resource
+
 ## [0.0.5] - 2023-05-28
 
 -   Adding domain and classifier resource
