@@ -4,6 +4,7 @@ import { Datasets } from './resources/datasets';
 import { Classifiers } from './resources/classifiers';
 import { Domains } from './resources/domains';
 import { Paradigms } from './resources/paradigms';
+import { Meanings } from './resources/meanings';
 import { HttpClient } from './http/http-client';
 export interface ConfigParams {
 	apiKey?: string;
@@ -25,6 +26,7 @@ export class EkilexClient {
 	protected _classifiers: Classifiers | undefined;
 	protected _domains: Domains | undefined;
 	protected _paradigms: Paradigms | undefined;
+	protected _meanings: Meanings | undefined;
 
 	constructor(config: ConfigParams) {
 		if (!isConfigValid(config)) {
@@ -79,5 +81,12 @@ export class EkilexClient {
 			this._paradigms = new Paradigms(this.httpClient);
 		}
 		return this._paradigms;
+	}
+
+	get meanings() {
+		if (!this._meanings) {
+			this._meanings = new Meanings(this.httpClient);
+		}
+		return this._meanings;
 	}
 }
