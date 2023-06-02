@@ -1,3 +1,7 @@
+## [0.0.9] - 2023-06-02
+
+-   Adding publicWords resource
+
 ## [0.0.8] - 2023-06-02
 
 -   Adding sources resource
