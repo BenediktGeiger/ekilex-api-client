@@ -1,3 +1,4 @@
+import { HttpClient } from './http/http-client';
 import { Endpoints } from './resources/endpoints';
 import { Words } from './resources/words';
 import { Datasets } from './resources/datasets';
@@ -5,7 +6,7 @@ import { Classifiers } from './resources/classifiers';
 import { Domains } from './resources/domains';
 import { Paradigms } from './resources/paradigms';
 import { Meanings } from './resources/meanings';
-import { HttpClient } from './http/http-client';
+import { Sources } from './resources/sources';
 export interface ConfigParams {
 	apiKey?: string;
 }
@@ -27,6 +28,7 @@ export class EkilexClient {
 	protected _domains: Domains | undefined;
 	protected _paradigms: Paradigms | undefined;
 	protected _meanings: Meanings | undefined;
+	protected _sources: Sources | undefined;
 
 	constructor(config: ConfigParams) {
 		if (!isConfigValid(config)) {
@@ -88,5 +90,12 @@ export class EkilexClient {
 			this._meanings = new Meanings(this.httpClient);
 		}
 		return this._meanings;
+	}
+
+	get sources() {
+		if (!this._sources) {
+			this._sources = new Sources(this.httpClient);
+		}
+		return this._sources;
 	}
 }
