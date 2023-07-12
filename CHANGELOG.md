@@ -1,3 +1,10 @@
+## [0.0.10] - 2023-07-12
+
+-   Adding publicWords create endpoint
+-   Adding method enum
+-   support POST/PUT/PATCH endpoints in http client
+-   support ekilex test environment during client creation
+
 ## [0.0.9] - 2023-06-02
 
 -   Adding publicWords resource
