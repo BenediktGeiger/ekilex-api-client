@@ -1,30 +1,43 @@
 import fetch from 'node-fetch';
+import { MarkRequired } from './types';
 
 export interface Headers {
-	[key: string]: string | string[];
+	[key: string]: string;
 }
 
 export interface NormalizedRequest {
 	method: string;
 	url: string;
 	headers: Headers;
-	body?: string;
+	body?: { [key: string]: unknown };
 }
 
-export function flatHeaders(headers: Headers): [string, string][] {
-	return Object.entries(headers).flatMap(([header, values]) =>
-		Array.isArray(values) ? values.map((value): [string, string] => [header, value]) : [[header, values]]
-	);
+export enum DataType {
+	JSON = 'application/json',
+	GraphQL = 'application/graphql',
+	URLEncoded = 'application/x-www-form-urlencoded',
+	Binary = 'application/octet-stream',
+}
+
+export enum Method {
+	Get = 'GET',
+	Post = 'POST',
+	Put = 'PUT',
+	Patch = 'PATCH',
+	Delete = 'DELETE',
+	Head = 'HEAD',
+	Options = 'OPTIONS',
+	Connect = 'CONNECT',
 }
 
 export type QueryParams = string | number | string[] | number[] | { [key: string]: QueryParams };
 
 export interface RequestParams {
-	method: 'GET' | 'POST' | 'DELETE' | 'PATCH' | 'PUT';
+	method: Method;
 	path: string;
 	data?: { [key: string]: unknown } | string;
 	query?: { [key: string]: QueryParams };
-	extraHeaders?: Headers;
+	headers?: Headers;
 	retries?: number;
 }
 
@@ -39,12 +52,15 @@ export class HttpClient {
 		this.basePath = basePath;
 	}
 
-	private async doRequest(request: NormalizedRequest) {
-		const response = await fetch(request.url, {
-			method: request.method,
-			headers: flatHeaders(request.headers),
-			body: request.body,
+	private async doRequest(requestParams: MarkRequired<RequestParams, 'headers'>) {
+		const url = this.basePath + requestParams.path;
+
+		const response = await fetch(url, {
+			method: requestParams.method,
+			headers: requestParams.headers,
+			...(Boolean(requestParams.data) && { body: JSON.stringify(requestParams.data) }),
 		});
+
 		if (!response?.ok) {
 			throw new Error('Unable to reach Ekilex-Api');
 		}
@@ -59,15 +75,12 @@ export class HttpClient {
 	async request(requestParams: RequestParams) {
 		const maxRetries = requestParams.retries ?? 1;
 
-		const url = this.basePath + requestParams.path;
-
-		if (requestParams.method === 'POST') {
-			// TODO prepare body
-		}
-
-		const headers = {
-			...requestParams.extraHeaders,
+		const enrichedHeaders: Headers = {
+			...requestParams.headers,
 			'ekilex-api-key': this.apiKey,
+			...([Method.Post, Method.Patch, Method.Put].includes(requestParams.method) && {
+				'Content-Type': DataType.JSON,
+			}),
 		};
 		let retries = 0;
 		while (retries < maxRetries) {
@@ -75,9 +88,8 @@ export class HttpClient {
 
 			try {
 				const response = this.doRequest({
-					method: requestParams.method,
-					url,
-					headers,
+					...requestParams,
+					headers: enrichedHeaders,
 				});
 
 				return response;

@@ -1,6 +1,7 @@
 import { HttpClient } from '../http/http-client';
 import { RequestParams } from '../http/http-client';
 import { DatasetCode } from './datasets';
+import { Method } from '../http/http-client';
 
 export type MeaningWord = {
 	wordId: number;
@@ -139,7 +140,7 @@ export class Meanings {
 
 	search(searchTerm: string, datasets: Array<DatasetCode> = []): Promise<MeaningSearchResponse> {
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: this.getSearchPath(searchTerm, datasets),
 		};
 
@@ -148,7 +149,7 @@ export class Meanings {
 
 	getDetails(wordId: number, datasets: Array<DatasetCode> = []): Promise<MeaningDetailsResponse> {
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: this.getMeaningDetailsPath(wordId, datasets),
 		};
 

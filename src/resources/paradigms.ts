@@ -1,5 +1,6 @@
 import { HttpClient } from '../http/http-client';
 import { RequestParams } from '../http/http-client';
+import { Method } from '../http/http-client';
 
 export type Form = {
 	id: number;
@@ -41,7 +42,7 @@ export class Paradigms {
 		const sanitizedWordId = encodeURIComponent(wordId);
 
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: `paradigm/details/${sanitizedWordId}`,
 		};
 

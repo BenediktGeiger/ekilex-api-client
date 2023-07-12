@@ -7,9 +7,9 @@
 	"scripts": {
 		"build": "npx tsc",
 		"dev:build": "$(npm bin)/tsc -w",
-		"dev:run": "nodemon -e ts,tsc --exec \"node --inspect=5858 -r ts-node/register ./lib/index.ts\"",
+		"dev:run": "nodemon -e ts,tsc --exec \"node --inspect=5858 -r ts-node/register ./index.ts\"",
 		"dev": "$(npm bin)/concurrently npm:dev:*",
-		"start": "NODE_ENV=production node dist/index.js",
+		"start": "NODE_ENV=production node lib/index.js",
 		"test": "jest --config ./config/jest.json",
 		"debug": "concurrently \"npx tsc --watch\" \"nodemon --inspect=1900 -q dist/index.js\"",
 		"lint": "eslint ./lib --ext .ts",

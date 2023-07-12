@@ -10,12 +10,21 @@ import { Sources } from './resources/sources';
 import { PublicWords } from './resources/public-words';
 export interface ConfigParams {
 	apiKey?: string;
+	environment?: 'test' | 'prod';
 }
+
+const basePaths = {
+	test: 'https://ekitest.tripledev.ee/ekilex/api/',
+	prod: 'https://ekilex.ee/api/',
+};
 
 function isConfigValid(config: ConfigParams): config is Required<ConfigParams> {
 	const regex = /^[0-9a-fA-F]{32}$/;
+	const isValidApiKey = regex.test(String(config.apiKey));
 
-	return regex.test(String(config.apiKey));
+	const isValidTestEnvironment = ['test', 'prod', undefined].includes(config.environment);
+
+	return isValidApiKey && isValidTestEnvironment;
 }
 
 export class EkilexClient {
@@ -34,10 +43,13 @@ export class EkilexClient {
 
 	constructor(config: ConfigParams) {
 		if (!isConfigValid(config)) {
-			throw new Error('Invalid config, API-Key is missing');
+			throw new Error('Invalid config');
 		}
 		this.config = config;
-		this.httpClient = new HttpClient(config.apiKey, 'https://ekilex.ee/api/');
+
+		const basePath = this.config.environment ? basePaths[this.config.environment] : basePaths.prod;
+
+		this.httpClient = new HttpClient(config.apiKey, basePath);
 		this.init();
 	}
 

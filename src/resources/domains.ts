@@ -1,5 +1,6 @@
 import { HttpClient } from '../http/http-client';
 import { RequestParams } from '../http/http-client';
+import { Method } from '../http/http-client';
 
 export type DomainOrigin = {
 	code: string;
@@ -22,7 +23,7 @@ export class Domains {
 
 	getOrigins(): Promise<Domain[]> {
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: 'domainorigins',
 		};
 
@@ -32,7 +33,7 @@ export class Domains {
 	get(domainCode: string): Promise<Domain[]> {
 		const sanitizedDomainCode = encodeURIComponent(domainCode);
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: `domains/${sanitizedDomainCode}`,
 		};
 

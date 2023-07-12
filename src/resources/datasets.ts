@@ -1,5 +1,6 @@
 import { HttpClient } from '../http/http-client';
 import { RequestParams } from '../http/http-client';
+import { Method } from '../http/http-client';
 
 export type DatasetCode =
 	| 'vkk-amet'
@@ -139,7 +140,7 @@ export class Datasets {
 
 	getAll(): Promise<Dataset[]> {
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: 'datasets',
 		};
 

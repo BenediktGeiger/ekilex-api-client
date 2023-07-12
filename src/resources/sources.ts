@@ -1,5 +1,6 @@
 import { HttpClient } from '../http/http-client';
 import { RequestParams } from '../http/http-client';
+import { Method } from '../http/http-client';
 
 export type SourceProperty = {
 	sourceId: number | null;
@@ -31,7 +32,7 @@ export class Sources {
 
 	search(searchTerm: string): Promise<SourceSearchResponse[]> {
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: this.getSearchPath(searchTerm),
 		};
 

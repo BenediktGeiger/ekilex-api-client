@@ -1,6 +1,6 @@
-import { HttpClient } from '../http/http-client';
-import { RequestParams } from '../http/http-client';
+import { RequestParams, HttpClient } from '../http/http-client';
 import { DatasetCode } from './datasets';
+import { Method } from '../http/http-client';
 
 export type Word = {
 	wordId: number;
@@ -103,6 +103,24 @@ export type WordDetailsResponse = {
 	activeTagComplete: boolean;
 };
 
+export type WordCreateResponse = {
+	success: boolean;
+	messsage: string;
+	id: number;
+};
+
+export type WordCreateDto = {
+	lexemeDataset: DatasetCode;
+	meaningId?: number;
+	value: string;
+	valuePrese: string;
+	lang: string;
+	displayMorphCode: string;
+	genderCode: string;
+	aspectCode: string;
+	vocalForm: string;
+};
+
 export class Words {
 	private httpClient: HttpClient;
 
@@ -138,9 +156,15 @@ export class Words {
 		return `${path}/${uniqueDatasetList.join(',')}`;
 	}
 
+	private getWordCreatePath(wordCreateDto: WordCreateDto) {
+		const dataset = encodeURIComponent(wordCreateDto.lexemeDataset);
+
+		return `word/create?crudRoleDataset=${dataset}`;
+	}
+
 	search(searchTerm: string, datasets: Array<DatasetCode> = []): Promise<WordSearchResponse> {
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: this.getSearchPath(searchTerm, datasets),
 		};
 
@@ -149,10 +173,20 @@ export class Words {
 
 	getDetails(wordId: number, datasets: Array<DatasetCode> = []): Promise<WordDetailsResponse> {
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: this.getWordDetailsPath(wordId, datasets),
 		};
 
+		return this.httpClient.request(request);
+	}
+
+	create(payload: WordCreateDto): Promise<WordCreateResponse> {
+		// TODO alidate and sanitize payload
+		const request: RequestParams = {
+			method: Method.Post,
+			path: this.getWordCreatePath(payload),
+			data: payload,
+		};
 		return this.httpClient.request(request);
 	}
 }

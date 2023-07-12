@@ -1,5 +1,6 @@
 import { HttpClient } from '../http/http-client';
 import { RequestParams } from '../http/http-client';
+import { Method } from '../http/http-client';
 
 export type EndpointsReturnType = {
 	requestMethod: string;
@@ -14,7 +15,7 @@ export class Endpoints {
 
 	getAll(): Promise<EndpointsReturnType[]> {
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: 'endpoints',
 		};
 

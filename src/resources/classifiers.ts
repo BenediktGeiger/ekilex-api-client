@@ -1,5 +1,6 @@
 import { HttpClient } from '../http/http-client';
 import { RequestParams } from '../http/http-client';
+import { Method } from '../http/http-client';
 
 export type Classifier = {
 	name: string;
@@ -45,7 +46,7 @@ export class Classifiers {
 	get(classifierName: ClassifierName): Promise<Classifier[]> {
 		const sanitizedClassifierName = encodeURIComponent(classifierName);
 		const request: RequestParams = {
-			method: 'GET',
+			method: Method.Get,
 			path: `classifiers/${sanitizedClassifierName}`,
 		};
 
