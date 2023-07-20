@@ -1,3 +1,7 @@
+## [0.0.11] - 2023-07-20
+
+-   Update Lexeme Types
+
 ## [0.0.10] - 2023-07-12
 
 -   Adding publicWords create endpoint

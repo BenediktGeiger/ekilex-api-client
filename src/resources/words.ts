@@ -71,16 +71,38 @@ export type Lexeme = {
 	registers: number | string | null;
 	governments: unknown[];
 	grammars: unknown[];
-	usages: unknown[];
+	usages: {
+		id: number;
+		value: string;
+		lang: string;
+		[key: string]: any;
+	}[];
 	lexemeFreeforms: unknown[];
 	lexemeNoteLangGroups: unknown[];
 	lexemeRelations: unknown[];
 	collocationPosGroups: unknown[];
 	secondaryCollocations: unknown[];
 	sourceLinks: unknown[];
-	meaning: unknown;
+	meaning: {
+		definitions: {
+			id: number;
+			value: string;
+			lang: string;
+			[key: string]: any;
+		}[];
+	};
 	meaningWords: unknown | null;
-	synonymLangGroups: unknown[];
+	synonymLangGroups: {
+		lang: string;
+		synonyms: {
+			words: {
+				wordId: number;
+				wordValue: string;
+				wordValuePrese: string;
+			}[];
+		}[];
+		[key: string]: any;
+	}[];
 	lexemeOrMeaningClassifiersExist: boolean;
 	public: boolean;
 };
