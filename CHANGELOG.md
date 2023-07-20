@@ -1,3 +1,7 @@
+## [0.0.12] - 2023-07-20
+
+-   Bump Version
+
 ## [0.0.11] - 2023-07-20
 
 -   Update Lexeme Types
