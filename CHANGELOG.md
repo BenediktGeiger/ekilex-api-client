@@ -1,3 +1,7 @@
+## [0.0.14] - 2023-08-14
+
+-   Add wordRelationDetails types
+
 ## [0.0.13] - 2023-07-31
 
 -   Update README

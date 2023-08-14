@@ -112,15 +112,54 @@ export type WordSearchResponse = {
 	words: Word[];
 };
 
+export type WordRelationMembers = {
+	id: number;
+	lexemeId: number | null;
+	meaningId: number | null;
+	wordId: number;
+	wordValue: string;
+	wordValuePrese: 'ontlik';
+	wordLang: DatasetCode;
+	wordAspectCode: any;
+	wordTypeCodes: any;
+	prefixoid: boolean;
+	suffixoid: boolean;
+	foreign: boolean;
+	wordHomonymNr: any;
+	homonymsExist: boolean;
+	relTypeCode: string;
+	relTypeLabel: string;
+	orderBy: number;
+	groupId: any;
+	groupWordRelTypeCode: any;
+};
+
+export type WordRelationDetails = {
+	wordSynRelations: any;
+	primaryWordRelationGroups: {
+		id: number | null;
+		groupTypeCode: string;
+		groupTypeLabel: string;
+		members: WordRelationMembers[] | null;
+	}[];
+	secondaryWordRelationGroups: {
+		id: number | null;
+		groupTypeCode: string;
+		groupTypeLabel: string;
+		members: WordRelationMembers[] | null;
+	};
+	wordGroups: any[];
+	groupRelationExists: boolean;
+};
+
 export type WordDetailsResponse = {
 	word: Word & { morphophonoForm: string; lexemesTagNames: string[]; manualEventOn: string };
 	wordTypes: string[]; // TODO check
 	paradigms: Paradigm[];
-
 	lexemes: Lexeme[];
 	wordEtymology: unknown[];
 	odWordRecommendations: unknown[];
-	wordRelationDetails: unknown;
+	wordRelationDetails: WordRelationDetails;
 	firstDefinitionValue: string | null;
 	activeTagComplete: boolean;
 };
