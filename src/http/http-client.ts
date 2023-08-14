@@ -87,7 +87,7 @@ export class HttpClient {
 			retries++;
 
 			try {
-				const response = this.doRequest({
+				const response = await this.doRequest({
 					...requestParams,
 					headers: enrichedHeaders,
 				});

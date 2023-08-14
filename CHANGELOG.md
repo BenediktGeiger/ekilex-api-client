@@ -1,3 +1,7 @@
+## [0.0.15] - 2023-08-14
+
+-   Add await to request method
+
 ## [0.0.14] - 2023-08-14
 
 -   Add wordRelationDetails types
