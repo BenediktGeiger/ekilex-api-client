@@ -66,7 +66,11 @@ export type Lexeme = {
 	complexity: string;
 	weight: number;
 	wordTypes: number | string | null;
-	pos: number | string | null;
+	pos: {
+		name: string;
+		code: string;
+		value: string;
+	}[];
 	derivs: number | string | null;
 	registers: number | string | null;
 	governments: unknown[];

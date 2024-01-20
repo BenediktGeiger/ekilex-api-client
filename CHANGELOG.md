@@ -1,3 +1,7 @@
+## [0.0.16] - 2024-01-20
+
+-   Fix Lexeme `pos` type
+
 ## [0.0.15] - 2023-08-14
 
 -   Add await to request method
