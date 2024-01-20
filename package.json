@@ -1,6 +1,6 @@
 {
 	"name": "@vanakaru/ekilex-api-client",
-	"version": "0.0.16",
+	"version": "0.0.17",
 	"description": "A node api client for the Ekilex API",
 	"main": "lib/index.js",
 	"types": "lib/index.d.ts",
