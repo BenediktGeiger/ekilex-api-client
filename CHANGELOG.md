@@ -1,3 +1,7 @@
+## [0.0.18] - 2024-08-23
+
+-   Enrich `synonym` type
+
 ## [0.0.17] - 2024-01-20
 
 -   bump version

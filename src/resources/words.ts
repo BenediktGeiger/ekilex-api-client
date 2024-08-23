@@ -99,10 +99,14 @@ export type Lexeme = {
 	synonymLangGroups: {
 		lang: string;
 		synonyms: {
+			type: string;
+			wordLang: string;
+			weight: number;
 			words: {
 				wordId: number;
 				wordValue: string;
 				wordValuePrese: string;
+				lang: string;
 			}[];
 		}[];
 		[key: string]: any;
