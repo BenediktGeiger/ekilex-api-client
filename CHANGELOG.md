@@ -1,3 +1,7 @@
+## [0.0.21] - 2024-08-23
+
+-   Enrich `lexeme` type with concrete `Government` type
+
 ## [0.0.20] - 2024-08-23
 
 -   Bump version

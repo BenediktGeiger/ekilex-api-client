@@ -37,6 +37,14 @@ export type Paradigm = {
 	formsExist: boolean;
 };
 
+export type Government = {
+	id: number;
+	value: string;
+	typeCode: string | null;
+	complexity: string;
+	orderBy: number;
+};
+
 export type Lexeme = {
 	wordId: number;
 	wordValue: string;
@@ -73,7 +81,7 @@ export type Lexeme = {
 	}[];
 	derivs: number | string | null;
 	registers: number | string | null;
-	governments: unknown[];
+	governments: Government[];
 	grammars: unknown[];
 	usages: {
 		id: number;
