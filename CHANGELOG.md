@@ -1,3 +1,7 @@
+## [0.0.22] - 2024-10-23
+
+-   Fix moved `paradigms` type 
+
 ## [0.0.21] - 2024-08-23
 
 -   Enrich `lexeme` type with concrete `Government` type

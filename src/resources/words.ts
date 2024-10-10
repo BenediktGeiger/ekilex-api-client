@@ -169,9 +169,8 @@ export type WordRelationDetails = {
 };
 
 export type WordDetailsResponse = {
-	word: Word & { morphophonoForm: string; lexemesTagNames: string[]; manualEventOn: string };
+	word: Word & { morphophonoForm: string; lexemesTagNames: string[]; manualEventOn: string; paradigms: Paradigm[] };
 	wordTypes: string[]; // TODO check
-	paradigms: Paradigm[];
 	lexemes: Lexeme[];
 	wordEtymology: unknown[];
 	odWordRecommendations: unknown[];
